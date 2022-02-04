@@ -1,0 +1,55 @@
+### 두번째 풀이, key idea : (1) bfs중 벽을 만났을때, 그벽에 대한 키가 있을경우 없을경우를 나눈것 -> 없을경우 해당하는 벽리스트에 좌표정보를 넣어줌
+###                        (2) key를 만났을때는, 그에 해당하는 벽에대한 모든 좌표를 다시 bfsq에 넣어줌 + key 리스트 업데이트
+
+
+import sys
+from collections import deque
+
+direction=[[0,-1],[-1,0],[0,1],[1,0]]
+def solve():
+    h,w=map(int,sys.stdin.readline().split())
+    Map=[['.']*(w+2)]+[['.']+list(sys.stdin.readline().rstrip())+['.'] for _ in range(h)]+[['.']*(w+2)]
+    key=[0]*26 #키의 정보를 담는 리스트
+    doorq=[deque() for _ in range(26)] #문의 정보를 담는 큐
+
+    temp=sys.stdin.readline().rstrip()
+    if temp!='0':
+        for i in temp:
+            key[ord(i)-97]=1
+    ans=0
+    bfsq=deque() #bfs를 돌리기 위한 큐, (0,0)부터 시작
+    bfsq.append([0,0])
+    visited=[[0]*(w+2) for _ in range(h+2)]
+    visited[0][0]=1
+    while bfsq:  
+        x,y=bfsq.popleft()
+        for i in range(4):
+            nx=x+direction[i][0]
+            ny=y+direction[i][1]
+            if 0<=nx<=h+1 and 0<=ny<=w+1 and not visited[nx][ny] and Map[nx][ny]!='*':
+                if Map[nx][ny]=='.':
+                    bfsq.append([nx,ny])
+                    visited[nx][ny]=1                    
+                elif Map[nx][ny]=='$':
+                    bfsq.append([nx,ny])
+                    visited[nx][ny]=1
+                    ans+=1
+                elif 'A'<=Map[nx][ny]<='Z':
+                    if key[ord(Map[nx][ny])-65]:
+                        bfsq.append([nx,ny])
+                        visited[nx][ny]=1
+                    else:
+                        doorq[ord(Map[nx][ny])-65].append([nx,ny]) 
+                else:
+                    key[ord(Map[nx][ny])-97]=1
+                    while doorq[ord(Map[nx][ny])-97]:
+                        bfsq.append(doorq[ord(Map[nx][ny])-97].pop())
+                    bfsq.append([nx,ny])
+                    visited[nx][ny]=1   
+
+    print(ans)
+
+    
+T=int(input())
+for i in range(T):
+    solve()
