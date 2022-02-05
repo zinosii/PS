@@ -1,0 +1,23 @@
+import sys
+input=sys.stdin.readline
+
+G=int(input())
+P=int(input())
+visit=[0]*(G+1) #방문체크용
+A=[i for i in range(G+1)] #i가 입력되면 A[i]번 게이트 부터 도킹가능
+docking=0
+
+for i in range(P):
+    g=int(input()) #게이트 번호
+    tmp=g #처음 게이트번호 저장, 후에 A리스트 업데이트를 위해
+    g=A[g] #도킹가능한 게이트를 찾자(게이트번호는 큰숫자부터)
+    while visit[g]: #방문한 게이트일 경우 사용할수 없음
+        g-=1 
+    if not g: #0일 경우 (모든 게이트를 사용함)
+        print(docking)
+        exit(0)
+    visit[g]=1 # A[g] 에대해 방문처리
+    A[tmp]-=1 # 처음 g에 해당하는 A값을 줄여줌
+    docking+=1
+    
+print(P)
