@@ -1,0 +1,27 @@
+import sys
+from collections import deque
+
+N=int(input())
+v=[0]*(N+1)
+def bfs(x,cnt):
+    bfsq=deque()
+    bfsq.append((x,cnt))
+    v[x]=1
+    while bfsq:
+        for _ in range(len(bfsq)):
+            n,l=bfsq.popleft()
+            if n==1:
+                print(len(l)-1)
+                for i in l:
+                    print(i,end=' ')
+                exit(0)
+            if not n%3 and not v[n//3]:
+                v[n//3]=1
+                bfsq.append((n//3,l+[n//3]))
+            if not n%2 and not v[n//2]:
+                v[n//2]=1
+                bfsq.append((n//2,l+[n//2]))
+            if not v[n-1]:
+                v[n-1]=1
+                bfsq.append((n-1,l+[n-1]))
+bfs(N,[N])
