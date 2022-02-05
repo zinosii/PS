@@ -1,0 +1,39 @@
+import sys
+sys.setrecursionlimit(1000001)
+
+anslist=[]
+ans=0
+
+def find(x):
+    global cnt
+    visit[x]=1
+    i=Choice[x]
+    
+    if not visit[i]:
+        find(i)
+    else:
+        if i not in team:
+            nxt=i
+            while nxt!=x:
+                nxt=Choice[nxt]
+                cnt+=1
+            cnt+=1
+    team.add(x)
+            
+
+    
+T=int(input())
+for i in range(T):
+    N=int(sys.stdin.readline())
+    Choice=[0]+list(map(int,sys.stdin.readline().split()))
+    visit=[0]*(N+1)
+    team=set()
+    
+    cnt=0
+    for j in range(1,N+1):
+        find(j)
+    anslist.append(N-cnt)
+for i in anslist:
+    print(i)
+        
+
