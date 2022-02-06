@@ -1,0 +1,30 @@
+import sys
+input=sys.stdin.readline
+
+N=int(input())
+l=[-1]+list(map(int,input().split()))
+M=int(input())
+DP=[[-1]*(N+1) for _ in range(N+1)]
+
+def f(s,e):
+    if DP[s][e]!=-1:
+        return DP[s][e]
+    if s==e:
+        DP[s][e]=1
+        return 1
+    if s+1==e:
+        if l[s]==l[e]:
+            DP[s][e]=1
+            return 1
+        DP[s][e]=0
+        return 0
+    if l[s]==l[e]:
+        DP[s][e]=f(s+1,e-1)
+        return DP[s][e]
+    DP[s][e]=0
+    return 0
+for _ in range(M):
+    s,e=map(int,input().split())
+    print(f(s,e))
+
+    
