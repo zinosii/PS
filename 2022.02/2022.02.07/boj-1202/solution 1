@@ -1,0 +1,25 @@
+import sys
+from collections import deque
+import heapq
+
+J=[]
+Bag=[]
+N,K=map(int,input().split())
+for i in range(N):
+    heapq.heappush(J,(list(map(int,sys.stdin.readline().split()))))
+
+for i in range(K):
+    Bag.append(int(sys.stdin.readline()))
+Bag.sort()
+
+#print(J,Bag)
+ans=0
+
+minh=[]
+for i in Bag:
+    while J and i >= J[0][0]:
+        heapq.heappush(minh,-heapq.heappop(J)[1])
+    if minh:
+        ans+=heapq.heappop(minh)
+    
+print(-ans)
