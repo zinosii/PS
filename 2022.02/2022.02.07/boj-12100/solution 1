@@ -1,0 +1,81 @@
+import sys
+import heapq
+input=sys.stdin.readline
+
+N=int(input())
+Board=[list(map(int,input().split())) for _ in range(N)]
+
+ans=0
+for i in range(N):
+    for j in range(N):
+        if ans<Board[i][j]:
+            ans=Board[i][j] #만약 합쳐지는 경우가 없으면, 처음 보드의 최댓값이 ans가 됨.
+
+def Bleft(B):
+    global ans
+    ret=[[]*N for _ in range(N)]
+    for i in range(N):
+        idx=0
+        exception=0
+        tmp=B[i][idx]
+        while idx<N-1:
+            nxt=B[i][idx+1]
+            if not nxt:
+                idx+=1
+                continue
+            if tmp!=nxt:
+                if tmp:
+                    ret[i].append(tmp)
+                tmp=nxt
+            else:
+                ret[i].append(tmp*2)
+                if ans<tmp*2:
+                    ans=tmp*2
+                idx+=1  
+                try: 
+                    tmp=B[i][idx+1]
+                except: #뒤에 두개가 합쳐진경우
+                    exception=1
+                    break
+            idx+=1
+        if not exception:
+            if tmp!=B[i][-1]:
+                ret[i].append(tmp)
+            if B[i][-1]:
+                ret[i].append(B[i][-1])
+        for j in range(len(ret[i]),N):
+            ret[i].append(0)
+    return ret
+
+def rotate(B,idx): #ccw
+    ret=[[0]*N for i in range(N)]
+    if idx==1:
+        for i in range(N):
+            for j in range(N):
+                ret[j][N-i-1]=B[i][j]
+        return ret
+    if idx==2:
+        for i in range(N):
+            for j in range(N):
+                ret[N-i-1][N-j-1]=B[i][j]
+        return ret        
+    if idx==3:
+        for i in range(N):
+            for j in range(N):
+                ret[N-j-1][i]=B[i][j]
+        return ret
+
+def f(B,cnt):
+    if cnt==5:
+        return
+    #왼쪽
+    f(Bleft(B),cnt+1)
+    #아래쪽
+    f(rotate(Bleft(rotate(B,1)),3),cnt+1)
+    #오른쪽
+    f(rotate(Bleft(rotate(B,2)),2),cnt+1)
+    #위쪽
+    f(rotate(Bleft(rotate(B,3)),1),cnt+1)
+    
+f(Board,0)
+print(ans)
