@@ -1,0 +1,242 @@
+import sys
+import heapq
+
+
+input=sys.stdin.readline
+
+#List=[]
+List=dict()
+Union=dict()
+total=0
+containNUMBER=dict()
+
+S=list(input().rstrip().split('&&'))
+for s in S:
+    idx=0
+    l=len(s)
+    
+    while s[idx]!='=':
+        idx+=1
+        
+    if s[idx-1]=='!': #!=
+        continue
+        left=s[0:idx-1]
+        right=s[idx+1:l]
+        
+        if left==right: #모순
+            print('1!=1')
+            exit(0)
+        l_in_List=0
+        r_in_List=0
+        lnum=1
+        rnum=1
+        
+        if 'a'<=left[0]<='z': 
+            lnum=0
+        if 'a'<=right[0]<='z':
+            rnum=0    
+            
+        if lnum:
+            left=int(left)
+        if rnum:
+            right=int(right) 
+        if lnum and rnum and left!=right: 
+            continue
+            
+        if left in List:
+            l_in_List=1
+        if right in List:
+            r_in_List=1
+            
+        if l_in_List:
+            if r_in_List: #둘다 이미 나온 단항식이면? find 해서 판별
+                if List[left]==List[right]: #모순
+                    print('1!=1')
+                    exit(0)                
+            else: #왼쪽단항식만 나왔다면, 일단 오른쪽을 추가해줌
+                if not lnum and rnum:
+                    #List.append(right)
+                    List[right]=total
+                    Union[total]={right}
+                    total+=1
+                elif lnum: #오른쪽이 변수이고 왼쪽이 숫자, 숫자가 이미나옴
+                    # if List[right] in containNUMBER: #만약 오른쪽변수가 이미 숫자로 할당된경우
+                    #     if containNUMBER[List[right]] != left: #그 숫자와 왼쪽이 다르면 ok
+                    #         continue
+                    #     else: #모순
+                    #         print('1!=1')
+                    #         exit(0)  
+                    # else: #숫자는 이미 할당됨. 변수를 넣어줌
+                    #List.append(right) 
+                    List[right]=total
+                    Union[total]={right}
+                    total+=1 
+                else: #왼쪽이 변수이고 오른쪽이 숫자, 변수가 이미나옴 
+                    if List[left] in containNUMBER: #만약 왼쪽변수가 이미 숫자로 할당된경우
+                        if containNUMBER[List[left]] != right: #그 숫자와 오른쪽이 다르면 ok
+                            continue
+                        else: #모순
+                            print('1!=1')
+                            exit(0)
+                    else: #이경우 변수와 숫자가 다르다는 정보를 넣어줘야함
+                        #List.append(right) 
+                        List[right]=total
+                        Union[total]={right}
+                        containNUMBER[total] = right
+                        total+=1
+                
+        else:
+            if r_in_List: #오른쪽만나옴
+                if not lnum and rnum:
+                    #List.append(left)
+                    List[left]=total
+                    Union[total]={left}
+                    total+=1
+                elif lnum: #오른쪽이 변수이고 왼쪽이 숫자, 변수가 이미나옴
+                    if List[right] in containNUMBER: #만약 오른쪽변수가 이미 숫자로 할당된경우
+                        if containNUMBER[List[right]] != left: #그 숫자와 왼쪽이 다르면 ok
+                            continue
+                        else: #모순
+                            print('1!=1')
+                            exit(0)  
+                    else: #이경우 변수와 숫자가 다르다는 정보를 넣어줘야함
+                        #List.append(left) 
+                        List[left]=total
+                        Union[total]={left}
+                        containNUMBER[total] = left
+                        total+=1
+                else: #오른쪽 숫자 왼쪽 변수 오른쪽나옴
+                    # if List[left] in containNUMBER: #만약 왼쪽변수가 이미 숫자로 할당된경우
+                    #     if containNUMBER[List[left]] == right: #그 숫자와 오른쪽이 같으면 ok
+                    #         continue
+                    #     else: #모순
+                    #         print('1!=1')
+                    #         exit(0)  
+                    # else: #변수가 숫자들과 같은 변수와 다르다는정보를 넣어줌
+                    #List.append(left) 
+                    List[left]=total
+                    Union[total]={left}
+                    total+=1 
+                
+                
+            else: #둘다 안나옴
+                #List.append(left)
+                #List.append(right)
+                List[left]=total
+                List[right]=total+1
+                Union[total]={left}
+                Union[total+1]={right}                
+                total+=2 
+    else: #==
+        left=s[0:idx]
+        right=s[idx+2:l]
+        if left==right:
+            continue
+        l_in_List=0
+        r_in_List=0
+        lnum=1
+        rnum=1
+        if 'a'<=left[0]<='z': 
+            lnum=0
+        if 'a'<=right[0]<='z':
+            rnum=0  
+            
+        if lnum:
+            left=int(left)
+        if rnum:
+            right=int(right)
+        if lnum and rnum and left!=right: #모순    
+            print('1!=1')
+            exit(0)
+            
+        if left in List:
+            l_in_List=1
+        if right in List:
+            r_in_List=1
+            
+        if l_in_List:
+            if r_in_List: #둘다 이미 나온 단항식이면? find 해서 판별
+                if List[left]!=List[right]: #모순
+                    print('1!=1')
+                    exit(0)
+            else: #왼쪽단항식만 나왔다면, 오른쪽을 추가한 후 union
+                if not lnum and not rnum:
+                    #List.append(right)
+                    List[right]=List[left]
+                    Union[List[right]].add(right)
+                    total+=1
+                elif lnum: #오른쪽이 변수이고 왼쪽이 숫자, 숫자가 이미나옴
+                    # if List[right] in containNUMBER: #만약 오른쪽변수가 이미 숫자로 할당된경우
+                    #     if containNUMBER[List[right]] == left: #그 숫자와 왼쪽이 같으면 ok
+                    #         continue
+                    #     else: #모순
+                    #         print('1!=1')
+                    #         exit(0)  
+                    #else: #숫자는 이미 할당됨. 변수를 숫자와 같은 변수들과 union
+                    #List.append(right) 
+                    List[right]=List[left]
+                    Union[List[right]].add(right)
+                    total+=1                           
+                else: #왼쪽이 변수이고 오른쪽이 숫자, 변수가 이미나옴 
+                    if List[left] in containNUMBER: #만약 왼쪽변수가 이미 숫자로 할당된경우
+                        if containNUMBER[List[left]] == right: #그 숫자와 오른쪽이 같으면 ok
+                            continue
+                        else: #모순
+                            print('1!=1')
+                            exit(0)
+                    else: #숫자할당이 안됨. 이경우 할당해주자
+                        #List.append(right) 
+                        List[right]=List[left]
+                        Union[List[right]].add(right)
+                        containNUMBER[List[right]] = right
+                        total+=1
+        else:
+            if r_in_List: #오른쪽만 이미 나옴 
+                if not lnum and not rnum:               
+                    #List.append(left)
+                    List[left]=List[right]
+                    Union[List[left]].add(left)
+                    total+=1
+                elif lnum: #오른쪽이 변수이고 왼쪽이 숫자, 변수가 이미나옴
+                    if List[right] in containNUMBER: #만약 오른쪽변수가 이미 숫자로 할당된경우
+                        if containNUMBER[List[right]] == left: #그 숫자와 왼쪽이 같으면 ok
+                            continue
+                        else: #모순
+                            print('1!=1')
+                            exit(0)  
+                    else: #숫자할당이 안됨. 이경우 할당해주자
+                        #List.append(left) 
+                        List[left]=List[right]
+                        Union[List[left]].add(left)
+                        containNUMBER[List[left]] = left
+                        total+=1
+                else: #오른쪽 숫자 왼쪽 변수 오른쪽나옴
+                    # if List[left] in containNUMBER: #만약 왼쪽변수가 이미 숫자로 할당된경우
+                    #     if containNUMBER[List[left]] == right: #그 숫자와 오른쪽이 같으면 ok
+                    #         continue
+                    #     else: #모순
+                    #         print('1!=1')
+                    #         exit(0)  
+                    #else: #숫자는 이미 할당됨. 변수를 숫자와 같은 변수들과 union
+                    #List.append(left) 
+                    List[left]=List[right]
+                    Union[List[left]].add(left)
+                    total+=1           
+                        
+                        
+            else: #둘다 안나옴
+                #List.append(left)
+                #List.append(right)
+                List[left]=total
+                List[right]=total
+                Union[total]={left,right}
+                total+=2  
+                
+# for i in List:
+#     for j in List[i]:
+        
+
+        
+#print(List)
+print(List)
+print(Union)
