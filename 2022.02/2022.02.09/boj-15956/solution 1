@@ -1,0 +1,146 @@
+import sys
+input=sys.stdin.readline
+
+Parent=[]
+Components=dict()
+F=dict()
+Samelist=[]
+Difflist=[]
+now=0
+
+def union(x,y):
+    x=find(x)
+    y=find(y)
+    if x>y:
+        Parent[x]=Parent[y]
+    else:
+        Parent[y]=Parent[x]
+
+def find(x):
+    if Parent[x]==x:
+        return x
+    Parent[x]=find(Parent[x])
+    return Parent[x]
+
+S=list(input().rstrip().split('&&'))
+for s in S:
+    idx=0
+    l=len(s)
+    while s[idx]!='=':
+        idx+=1
+    if s[idx-1]!='!': #==
+        left=s[0:idx]
+        right=s[idx+2:l]
+        if left==right:
+            continue
+        
+        if left in Components:
+            x=Components[left]    
+        else:
+            x=now
+            Components[left]=now
+            Parent.append(now)
+            now+=1
+        if right in Components:
+            y=Components[right]
+        else:
+            y=now
+            Components[right]=now
+            Parent.append(now)
+            now+=1
+        Samelist.append((x,y))
+
+    else: #!=
+        left=s[0:idx-1]
+        right=s[idx+1:l]
+        
+        if left in Components:
+            x=Components[left]
+        else:
+            x=now
+            Components[left]=now
+            Parent.append(now)
+            now+=1
+        if right in Components:
+            y=Components[right]
+        else:
+            y=now
+            Components[right]=now
+            Parent.append(now)
+            now+=1           
+        Difflist.append((x,y))
+
+for i in Samelist:
+    union(i[0],i[1])
+for i in Components:
+    par=find(Components[i])
+    if par in F:
+        F[par].append(i)
+    else:
+        F[par]=[]
+        F[par].append(i)
+
+numbercontain=set() 
+answer=[]
+for i in F:
+    hasnum=0
+    minlen=len(F[i][0])
+    minidx=0
+    lenFi=len(F[i])
+    for j in range(lenFi):
+        l=len(F[i][j])
+        if l<minlen:
+            minlen=l
+            minidx=j
+        if not 'a'<=str(F[i][j][0])<='z' and not 'A'<=str(F[i][j][0])<='Z':
+            if hasnum:
+                print('1!=1')
+                exit(0)
+            hasnum=1
+
+    for j in range(lenFi):
+        if minidx!=j:
+            answer.append(F[i][minidx])
+            answer.append('==')
+            answer.append(F[i][j])
+            answer.append('&&')
+    temp=F[i][0]
+    F[i][0]=F[i][minidx]
+    F[i][minidx]=temp
+    if hasnum:
+        numbercontain.add(i)
+
+Inequal=set()
+
+for i in Difflist:
+    x=find(i[0])
+    y=find(i[1])
+    if x>y:
+        temp=x
+        x=y
+        y=temp
+    if x==y:
+        print('1!=1')
+        exit(0)
+    if x in numbercontain and y in numbercontain:
+        continue
+        
+    if len(F[x][0])<len(F[y][0]):
+        Inequal.add((F[x][0],F[y][0]))
+    else:
+        Inequal.add((F[y][0],F[x][0]))
+            
+for i in Inequal:            
+    answer.append(i[0])
+    answer.append('!=')
+    answer.append(i[1])
+    answer.append('&&')        
+
+if not answer:
+    print('1==1')
+    exit(0)
+answer.pop()
+while answer:
+    print(answer.pop(),end='')
+
+        
