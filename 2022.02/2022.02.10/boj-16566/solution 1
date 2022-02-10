@@ -1,0 +1,30 @@
+import sys
+input=sys.stdin.readline
+
+N,M,K=map(int,input().split())
+Cards=list(map(int,input().split()))
+Parent=[i for i in range(N+1)]
+Cards.sort()
+
+def ub(target,s,e):
+    while s<e:
+        m=(s+e)//2
+        if target>=Cards[m]:
+            s=m+1
+        else:
+            e=m
+    return e
+        
+def find(x):
+    if x==Parent[x]:
+        return x
+    Parent[x]=find(Parent[x])
+    return Parent[x]
+   
+for i in map(int,input().split()):
+    U=find(ub(i,0,M-1))
+    Parent[U]=Parent[find(U+1)]
+    print(Cards[U])
+
+    
+    
