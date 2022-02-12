@@ -37,7 +37,7 @@ def Eratos(n):
 
 ans=1
 
-Eratos(2*L[-1]//N) #비둘기집의 원리로 최
+Eratos(2*L[-1]//N) #비둘기집의 원리로 최적화
 d=[0]*Primes[-1]
 for p in Primes:
     U=lb(p)
