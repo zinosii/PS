@@ -1,0 +1,21 @@
+import sys
+input=sys.stdin.readline
+n,m=map(int,input().split())
+P=[i for i in range(n)]
+def find(x):
+    if x==P[x]:
+        return x
+    P[x]=find(P[x])
+    return P[x]
+for i in range(m):
+    x,y=map(int,input().split())
+    x=find(x)
+    y=find(y)
+    if x==y:
+        print(i+1)
+        exit(0)
+    if x<y:
+        P[y]=P[x]
+    else:
+        P[x]=P[y]
+print(0)
