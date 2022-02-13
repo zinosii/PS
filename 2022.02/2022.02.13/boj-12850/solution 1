@@ -24,7 +24,7 @@ def f(M,D):
     for i in range(8):
         ret[i][i]=1
     while D:
-        if D%2:
+        if D&1:
             ret=matrixmul(M,ret)
         D//=2
         M=matrixmul(M,M)
