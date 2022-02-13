@@ -1,0 +1,53 @@
+import sys
+import math
+input=sys.stdin.readline
+sys.setrecursionlimit(100000)
+
+def min_init(seg,L,node,s,e):
+    if s==e:
+        seg[node]=s
+    else:
+        m=(s+e)//2
+        min_init(seg,L,node*2,s,m)
+        min_init(seg,L,node*2+1,m+1,e)
+        if L[seg[node*2]]<L[seg[node*2+1]]:
+            seg[node]=seg[node*2]
+        else:
+            seg[node]=seg[node*2+1]
+            
+def min_find(seg,L,node,s,e,l,r):
+    if r<s or l>e:
+        return -1
+    elif l<=s and e<=r:
+        return seg[node]
+    else:
+        m=(s+e)//2
+        m1=min_find(seg,L,node*2,s,m,l,r)
+        m2=min_find(seg,L,node*2+1,m+1,e,l,r)
+        if m1==-1:
+            return m2
+        if m2==-1:
+            return m1
+        if L[m1]<L[m2]:
+            return m1
+        else:
+            return m2
+def findA(seg,L,size,l,r):
+    ans=0
+    minidx=min_find(seg,L,1,1,size,l,r)
+    ans=L[minidx]*(r-l+1)
+    if l<=minidx-1:
+        ans=max(ans,findA(seg,L,size,l,minidx-1))
+    if minidx+1<=r:
+        ans=max(ans,findA(seg,L,size,minidx+1,r))
+    return ans
+            
+N=list(map(int,input().split()))
+while N[0]:
+    segtree=[0]*(1<<(int(math.log2(N[0]))+1)+1)
+    size=N[0]
+    min_init(segtree,N,1,1,size)
+
+    print(findA(segtree,N,size,1,size))
+
+    N=list(map(int,input().split()))
