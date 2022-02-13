@@ -1,0 +1,32 @@
+import sys
+input=sys.stdin.readline
+MOD=1000000007
+
+M=[[0,1,1,0,0,0,0,0],
+   [1,0,1,1,0,0,0,0],
+   [1,1,0,1,1,0,0,0],
+   [0,1,1,0,1,1,0,0],
+   [0,0,1,1,0,1,0,1],
+   [0,0,0,1,1,0,1,0],
+   [0,0,0,0,0,1,0,1],
+   [0,0,0,0,1,0,1,0]]
+
+def matrixmul(M,N):
+    ret=[[0]*8 for _ in range(8)]
+    for i in range(8):
+        for j in range(8):
+            for k in range(8):
+                ret[i][j]+=M[i][k]*N[k][j]
+                ret[i][j]%=MOD
+    return ret
+def f(M,D):
+    ret=[[0]*8 for _ in range(8)]
+    for i in range(8):
+        ret[i][i]=1
+    while D:
+        if D%2:
+            ret=matrixmul(M,ret)
+        D//=2
+        M=matrixmul(M,M)
+    print((ret[0][1]+ret[0][2])%MOD)
+f(M,int(input())-1)
