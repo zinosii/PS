@@ -89,4 +89,12 @@
 </details>  
 </blockquote></details>
   
+<details><summary> 2022.02.13 </summary><blockquote>
+<details><summary> boj 12850, 본대 산책2 </summary>
+  
++ 처음 풀이 :<br> **1**. 처음에 행렬곱을 떠올리지 못해서 고민하다가, 행렬곱을 떠올리고 바로 풀 수 있었다. 추가로, N%2==1 임을 확인할때 N&1로 비트 연산을 사용하는 습관을 들여야겠다.
+</details>
+  
+</blockquote></details>
+  
 </blockquote></details> 
