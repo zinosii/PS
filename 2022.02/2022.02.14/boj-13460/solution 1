@@ -1,0 +1,292 @@
+import sys
+import copy
+input=sys.stdin.readline
+
+N,M=map(int,input().split())
+Board=[list(input().rstrip()) for _ in range(N)]
+
+for i in range(N):
+    for j in range(M):
+        if Board[i][j]=='R':
+            Rpos=[i,j]
+        if Board[i][j]=='B':
+            Bpos=[i,j]
+        if Board[i][j]=='O':
+            Hpos=[i,j]
+ans=10
+C=0
+def f(B,direction,cnt,Rpos,Bpos):
+    
+    global ans,C
+    if cnt>ans:
+        return
+    NewBoard=copy.deepcopy(B)
+    if direction==0: #left, R,B의 y값을 변경 
+        newRpos=[Rpos[0],0]
+        newBpos=[Bpos[0],0]
+        if Hpos[0]==Rpos[0]:
+            if Hpos[1]<Rpos[1]:
+                wall=0
+                for k in range(Hpos[1]+1,Rpos[1]):
+                    if NewBoard[Hpos[0]][k]=='#':
+                        wall=1
+                        break
+                if not wall:
+                    if Hpos[0]==Bpos[0] and Hpos[1]<Bpos[1]:
+                        Bwall=0
+                        for k in range(Hpos[1]+1,Bpos[1]):
+                            if NewBoard[Hpos[0]][k]=='#':
+                                Bwall=1
+                                break
+                        if not Bwall:
+                            return
+                    ans=min(ans,cnt)
+                    C=1
+                    return
+        NewBoard[Rpos[0]][Rpos[1]]='.'
+        newRpos_y=Rpos[1]
+        while newRpos_y>=1:
+            if NewBoard[Rpos[0]][newRpos_y]=='#':
+                break
+            else:
+                newRpos_y-=1
+        newRpos[1]=newRpos_y+1
+        if Hpos[0]==Bpos[0]:
+            if Hpos[1]<Bpos[1]: 
+                Bwall=0
+                for k in range(Hpos[1]+1,Bpos[1]):
+                    if NewBoard[Hpos[0]][k]=='#':
+                        Bwall=1
+                        break
+                if not Bwall:
+                    return
+        NewBoard[Bpos[0]][Bpos[1]]='.'
+        newBpos_y=Bpos[1]
+        while newBpos_y>=1:
+            if NewBoard[Bpos[0]][newBpos_y]=='#':
+                break
+            else:
+                newBpos_y-=1
+        newBpos[1]=newBpos_y+1
+        
+        if newRpos==Rpos and newBpos==Bpos:
+            return
+        
+        if newRpos==newBpos:
+            if Rpos[1]<Bpos[1]:
+                NewBoard[newRpos[0]][newRpos[1]]='R'
+                NewBoard[newBpos[0]][newBpos[1]+1]='B'  
+                newBpos[1]+=1
+            else:
+                NewBoard[newRpos[0]][newRpos[1]+1]='R'
+                newRpos[1]+=1
+                NewBoard[newBpos[0]][newBpos[1]]='B'
+        else:
+            NewBoard[newRpos[0]][newRpos[1]]='R'
+            NewBoard[newBpos[0]][newBpos[1]]='B'
+        
+        f(NewBoard,1,cnt+1,newRpos,newBpos)       
+        f(NewBoard,3,cnt+1,newRpos,newBpos)
+    
+    if direction==1: #down, R,B의 x값을 변경 
+        newRpos=[0,Rpos[1]]
+        newBpos=[0,Bpos[1]]
+        if Hpos[1]==Rpos[1]:
+            if Hpos[0]>Rpos[0]:
+                wall=0
+                for k in range(Rpos[0]+1,Hpos[0]):
+                    if NewBoard[k][Hpos[1]]=='#':
+                        wall=1
+                        break
+                if not wall:
+                    if Hpos[1]==Bpos[1] and Hpos[0]>Bpos[0]:
+                        Bwall=0
+                        for k in range(Bpos[0]+1,Hpos[0]):
+                            if NewBoard[k][Hpos[1]]=='#':
+                                Bwall=1
+                                break
+                        if not Bwall:
+                            return
+                    ans=min(ans,cnt)
+                    C=1
+                    return
+        NewBoard[Rpos[0]][Rpos[1]]='.'
+        newRpos_x=Rpos[0]
+        while newRpos_x<=N-2:
+            if NewBoard[newRpos_x][Rpos[1]]=='#':
+                break
+            else:
+                newRpos_x+=1
+        newRpos[0]=newRpos_x-1
+        if Hpos[1]==Bpos[1]:
+            if Hpos[0]>Bpos[0]: 
+                Bwall=0
+                for k in range(Bpos[0]+1,Hpos[0]):
+                    if NewBoard[k][Hpos[1]]=='#':
+                        Bwall=1
+                        break
+                if not Bwall:
+                    return
+        NewBoard[Bpos[0]][Bpos[1]]='.'
+        newBpos_x=Bpos[0]
+        while newBpos_x<=N-2:
+            if NewBoard[newBpos_x][Bpos[1]]=='#':
+                break
+            else:
+                newBpos_x+=1
+        newBpos[0]=newBpos_x-1
+        if newRpos==Rpos and newBpos==Bpos:
+            return
+
+        if newRpos==newBpos:
+            if Rpos[0]>Bpos[0]:
+                NewBoard[newRpos[0]][newRpos[1]]='R'
+                NewBoard[newBpos[0]-1][newBpos[1]]='B'  
+                newBpos[0]-=1
+            else:
+                NewBoard[newRpos[0]-1][newRpos[1]]='R'
+                NewBoard[newBpos[0]][newBpos[1]]='B'
+                newRpos[0]-=1
+        else:
+            NewBoard[newRpos[0]][newRpos[1]]='R'
+            NewBoard[newBpos[0]][newBpos[1]]='B'
+        f(NewBoard,0,cnt+1,newRpos,newBpos)
+        f(NewBoard,2,cnt+1,newRpos,newBpos)        
+        
+    if direction==2: #right, R,B의 y값을 변경 
+        newRpos=[Rpos[0],0]
+        newBpos=[Bpos[0],0]
+        if Hpos[0]==Rpos[0]:
+            if Hpos[1]>Rpos[1]:
+                wall=0
+                for k in range(Rpos[1]+1,Hpos[1]):
+                    if NewBoard[Hpos[0]][k]=='#':
+                        wall=1
+                        break
+                if not wall:
+                    if Hpos[0]==Bpos[0] and Hpos[1]>Bpos[1]:
+                        Bwall=0
+                        for k in range(Bpos[1]+1,Hpos[1]):
+                            if NewBoard[Hpos[0]][k]=='#':
+                                Bwall=1
+                                break
+                        if not Bwall:
+                            return
+                    ans=min(ans,cnt)
+                    C=1
+                    return
+        NewBoard[Rpos[0]][Rpos[1]]='.'
+        newRpos_y=Rpos[1]
+        while newRpos_y<=M-2:
+            if NewBoard[Rpos[0]][newRpos_y]=='#':
+                break
+            else:
+                newRpos_y+=1
+        newRpos[1]=newRpos_y-1
+        if Hpos[0]==Bpos[0]:
+            if Hpos[1]>Bpos[1]: 
+                Bwall=0
+                for k in range(Bpos[1]+1,Hpos[1]):
+                    if NewBoard[Hpos[0]][k]=='#':
+                        Bwall=1
+                        break
+                if not Bwall:
+                    return
+        NewBoard[Bpos[0]][Bpos[1]]='.'
+        newBpos_y=Bpos[1]
+        while newBpos_y<=M-2:
+            if NewBoard[Bpos[0]][newBpos_y]=='#':
+                break
+            else:
+                newBpos_y+=1
+        newBpos[1]=newBpos_y-1
+        if newRpos==Rpos and newBpos==Bpos:
+            return
+        
+        if newRpos==newBpos:
+            if Rpos[1]<Bpos[1]:
+                NewBoard[newRpos[0]][newRpos[1]-1]='R'
+                NewBoard[newBpos[0]][newBpos[1]]='B'  
+                newRpos[1]-=1
+            else:
+                NewBoard[newRpos[0]][newRpos[1]]='R'
+                NewBoard[newBpos[0]][newBpos[1]-1]='B'
+                newBpos[1]-=1
+        else:
+            NewBoard[newRpos[0]][newRpos[1]]='R'
+            NewBoard[newBpos[0]][newBpos[1]]='B'
+        f(NewBoard,1,cnt+1,newRpos,newBpos)        
+        f(NewBoard,3,cnt+1,newRpos,newBpos)
+        
+    if direction==3: #up, R,B의 x값을 변경 
+        newRpos=[0,Rpos[1]]
+        newBpos=[0,Bpos[1]]
+        if Hpos[1]==Rpos[1]:
+            if Hpos[0]<Rpos[0]:
+                wall=0
+                for k in range(Hpos[0]+1,Rpos[0]):
+                    if NewBoard[k][Hpos[1]]=='#':
+                        wall=1
+                        break
+                if not wall:
+                    if Hpos[1]==Bpos[1] and Hpos[0]<Bpos[0]:
+                        Bwall=0
+                        for k in range(Hpos[0]+1,Bpos[0]):
+                            if NewBoard[k][Hpos[1]]=='#':
+                                Bwall=1
+                                break
+                        if not Bwall:
+                            return
+                    ans=min(ans,cnt)
+                    C=1
+                    return
+        NewBoard[Rpos[0]][Rpos[1]]='.'
+        newRpos_x=Rpos[0]
+        while newRpos_x>=1:
+            if NewBoard[newRpos_x][Rpos[1]]=='#':
+                break
+            else:
+                newRpos_x-=1
+        newRpos[0]=newRpos_x+1
+        if Hpos[1]==Bpos[1]:
+            if Hpos[0]<Bpos[0]: 
+                Bwall=0
+                for k in range(Hpos[0]+1,Bpos[0]):
+                    if NewBoard[k][Hpos[1]]=='#':
+                        Bwall=1
+                        break
+                if not Bwall:
+                    return
+        NewBoard[Bpos[0]][Bpos[1]]='.'
+        newBpos_x=Bpos[0]
+        while newBpos_x>=1:
+            if NewBoard[newBpos_x][Bpos[1]]=='#':
+                break
+            else:
+                newBpos_x-=1
+        newBpos[0]=newBpos_x+1
+        if newRpos==Rpos and newBpos==Bpos:
+            return
+        
+        if newRpos==newBpos:
+            if Rpos[0]<Bpos[0]:
+                NewBoard[newRpos[0]][newRpos[1]]='R'
+                NewBoard[newBpos[0]+1][newBpos[1]]='B' 
+                newBpos[0]+=1
+            else:
+                NewBoard[newRpos[0]+1][newRpos[1]]='R'
+                newRpos[0]+=1
+                NewBoard[newBpos[0]][newBpos[1]]='B'
+        else:
+            NewBoard[newRpos[0]][newRpos[1]]='R'
+            NewBoard[newBpos[0]][newBpos[1]]='B'
+
+        f(NewBoard,0,cnt+1,newRpos,newBpos)    
+        f(NewBoard,2,cnt+1,newRpos,newBpos)
+        
+for i in range(4):
+    f(Board,i,1,Rpos,Bpos)
+if C:
+    print(ans)
+else:
+    print(-1)
