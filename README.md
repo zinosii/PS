@@ -97,4 +97,11 @@
   
 </blockquote></details>
   
+<details><summary> 2022.02.14 </summary><blockquote>
+<details><summary> boj 13460, 구슬 탈출 2 </summary>
+
++ 매우 빡센 구현 문제. 디버깅할때 놓친부분이 없는지 꼼꼼히 체크하자.  
+</details>
+</blockquote></details>
+
 </blockquote></details> 
