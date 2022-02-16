@@ -1,0 +1,35 @@
+import sys
+input=sys.stdin.readline
+
+N,M=map(int,input().split())
+Parent=[i for i in range(N*M)]
+
+def find(x):
+    if x==Parent[x]:
+        return x
+    Parent[x]=find(Parent[x])
+    return Parent[x]
+
+for i in range(N):
+    for j,k in enumerate(list(input().rstrip())):
+        if k=='D':
+            X=find(M*i+j)
+            Y=find(M*i+j+M)
+        elif k=='L':
+            X=find(M*i+j)
+            Y=find(M*i+j-1)
+        elif k=='R':
+            X=find(M*i+j)
+            Y=find(M*i+j+1)
+        else:
+            X=find(M*i+j)
+            Y=find(M*i+j-M)
+        if X>Y:
+            Parent[X]=Y
+        else:
+            Parent[Y]=X
+
+s=set()
+for i in range(N*M):
+    s.add(find(i))
+print(len(s))
