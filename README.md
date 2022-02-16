@@ -117,4 +117,12 @@
 </details>
 </blockquote></details> 
   
+<details><summary> 2022.02.16 </summary><blockquote>
+<details><summary> boj 16724, 피리 부는 사나이 </summary>
+  
++ 처음풀이 :<br> **1**. 간단한 Union-Find 문제인줄 알았으나, 한번 WA를 받았음.<br> **2**. 틀린이유를 찾아보니, 마지막에 전체적으로 Parent리스트를 갱신해주어야 했었음.
+</details>
+</blockquote></details>   
+  
+  
 </blockquote></details> 
