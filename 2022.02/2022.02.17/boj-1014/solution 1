@@ -1,0 +1,58 @@
+import sys
+input=sys.stdin.readline
+
+def dfs(i,line,m,Lines):
+    if i==m:
+        Lines.append(line)
+        return
+    dfs(i+1,line+'0',m,Lines)
+    if i>0 and line[i-1]=='1':
+        return
+    dfs(i+1,line+'1',m,Lines)
+
+    
+def dp(R,C,line_idx,before,DP,Lines,Board):
+    if line_idx==R:
+        return 0
+    if DP[line_idx][before]>-1:
+        return DP[line_idx][before]
+    ans=0
+    for line in Lines:
+        bits=0
+        cnt=0
+        for i in range(C):
+            if line[i]=='0':
+                continue
+            if Board[line_idx][i]:             
+                continue
+            if i>0 and before & 1<<(i-1):
+                continue
+            if i<C and before & 1<<(i+1):
+                continue
+            cnt+=1
+            bits|=(1<<i)
+        ans=max(ans,dp(R,C,line_idx+1,bits,DP,Lines,Board)+cnt)
+    DP[line_idx][before]=ans
+    return ans
+        
+    
+    
+def find():
+    R,C=map(int,input().split())
+    Board=[[0]*C for _ in range(R)]
+    for i in range(R):
+        for j,k in enumerate(input().rstrip()):
+            if k=='x':
+                Board[i][j]=1
+    Lines=[]
+    dfs(0,"",C,Lines)
+    DP=[[-1]*(1<<C) for _ in range(R)]
+    return dp(R,C,0,0,DP,Lines,Board)
+    
+    
+    
+
+T=int(input())
+while T:
+    T-=1
+    print(find())
