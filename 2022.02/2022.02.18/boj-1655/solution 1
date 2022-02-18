@@ -1,0 +1,36 @@
+import sys
+import heapq
+input=sys.stdin.readline
+
+minh=[]
+maxh=[]
+minlen=0
+maxlen=0
+T=int(input())
+
+maxh.append(-int(input()))
+maxlen=1
+ans=[str(-maxh[0])]
+'''
+최소힙의 모든 원소가 최대힙의 모든원소보다 커야함
+힙의 원소의 개수가 같은경우 : 총원소가 짝수개
+최대힙의 원소의 개수가 최소힙의 원소의 개수보다 1큰 경우  : 홀수
+'''
+while T-1:
+    T-=1
+    N=int(input())
+    if maxlen==minlen:
+        heapq.heappush(maxh,-N)
+        maxlen+=1
+    else:
+        heapq.heappush(minh,N)
+        minlen+=1
+    if -maxh[0] > minh[0]:
+        temp1=-heapq.heappop(maxh)
+        temp2=-heapq.heappop(minh)
+        heapq.heappush(maxh,temp2)
+        heapq.heappush(minh,temp1)
+    ans.append(str(-maxh[0]))
+print('\n'.join(ans))        
+            
+    
