@@ -137,5 +137,10 @@
 + 해답 :<br> **1**. minheap 과 maxheap을 만들고, 가장 핵심이 되는 부분은 최대힙의 원소갯수가 항상 최소힙의 원소갯수보다 1크거나 같아야 한다는점임.<br> **2**. 중간값을 추출해야하므로, 모든 minheap의 원소들은 maxheap의 모든 원소보다 항상 크게 만들어 주기만 하면, maxheap의 top값이 반드시 중간값이 됨.<br> **3**. 이 때 두힙의 원소갯수가 같은경우가 총원소갯수가 짝수인경우인데, 이경우또한 maxheap의 top이 minheap의 top보다 작아야하므로 답이 됨.
 </details> 
 </blockquote></details> 
+<details><summary> 2022.02.19 </summary><blockquote>
+<details><summary> boj 2812, 크게 만들기 </summary>
   
++ 구간의 가장 큰 값을 저장하는 segment tree를 이용하여 간단하게 풀 수 있었다. 이외에도 여러 풀이가 있었는데, 그 중스택을 이용한 풀이가 매우 참신하였음.
+</details> 
+</blockquote></details>  
 </blockquote></details>  
