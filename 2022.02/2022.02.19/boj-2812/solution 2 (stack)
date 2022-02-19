@@ -1,0 +1,12 @@
+import sys
+N,K=map(int,sys.stdin.readline().split())
+L=list(sys.stdin.readline().rstrip())
+s=[]
+discard=K
+for i in L:
+    while discard>0 and s and s[-1]<i:
+        discard-=1
+        s.pop()
+    s.append(i)
+
+print(''.join(s[0:N-K]))
