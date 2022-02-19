@@ -1,0 +1,59 @@
+import sys
+
+input=sys.stdin.readline
+
+N,K=map(int,input().split())
+L=list(map(int,input().rstrip()))
+
+segtree=[0]*2000000
+'''구간의 가장큰 값의 인덱스를 저장하는 segtree'''
+
+def init(node,left,right):
+    if left==right:
+        segtree[node]=left
+        return
+    mid=(left+right)//2
+    init(node*2,left,mid)
+    init(node*2+1,mid+1,right)
+    if L[segtree[node*2]] >= L[segtree[node*2+1]]:
+        segtree[node]=segtree[node*2]
+    else:
+        segtree[node]=segtree[node*2+1]
+
+
+def findmax(node,left,right,s,e):
+    if s>right or e<left:
+        return -1
+    if s<=left and e>=right:
+        return segtree[node]
+    else:
+        mid=(left+right)//2
+        x=findmax(node*2,left,mid,s,e)
+        y=findmax(node*2+1,mid+1,right,s,e)
+        if x==-1:
+            return y
+        if y==-1:
+            return x
+        if L[x]>=L[y]:
+            return x
+        else:
+            return y
+        
+init(1,0,N-1)       
+
+intervalstart=0
+intervalend=K
+discard=K
+pick=N-K
+#print(findmax(1,0,3,0,2))
+while discard and pick:
+    Maxidx=findmax(1,0,N-1,intervalstart,intervalend)
+    print(L[Maxidx],end='')
+    discard-=(Maxidx-intervalstart)
+    intervalstart=Maxidx+1
+    intervalend=intervalstart+discard
+    pick-=1
+    
+if pick:
+    for i in range(intervalstart,N):
+        print(L[i],end='')
