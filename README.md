@@ -143,4 +143,10 @@
 + 구간의 가장 큰 값을 저장하는 segment tree를 이용하여 간단하게 풀 수 있었다. 이외에도 여러 풀이가 있었는데, 그 중스택을 이용한 풀이가 매우 참신하였음.
 </details> 
 </blockquote></details>  
+<details><summary> 2022.02.20 </summary><blockquote>
+<details><summary> boj 2042, 구간 합 구하기 </summary>
+  
++ segment tree를 이용하여 구간의 합을 빠르게 구할 수 있었음. segment tree 자료구조를 잘 이용하자.
+</details> 
+</blockquote></details> 
 </blockquote></details>  
