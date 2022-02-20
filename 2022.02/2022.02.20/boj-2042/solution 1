@@ -1,0 +1,58 @@
+'''
+세그먼트 트리
+
+배열 L의 구간의 합을 구하자.
+
+init 함수 : 처음 초기화
+find 함수 : 구간의 값을 찾을 때 
+ left,right : 합을 구할 구간
+update 함수 : 숫자의 변경이 있을 때
+ index : 변경할 숫자의 인덱스 
+ diff : 원래 숫자 - 변경된 숫자 값 (diff만큼 segtree에 더해준다 생각하면 됨)
+'''
+import sys
+import math
+input=sys.stdin.readline
+
+def init(segtree,node,s,e):
+    if s==e:
+        segtree[node]=L[s]
+        return segtree[node]
+    mid=(s+e)//2
+    segtree[node]=init(segtree,node*2,s,mid)+init(segtree,node*2+1,mid+1,e)
+    return segtree[node]
+
+def find(segtree,node,s,e,left,right):
+    if left>e or right<s:
+        return 0
+    if left<=s and right>=e:
+        return segtree[node]
+    mid=(s+e)//2
+    return find(segtree,node*2,s,mid,left,right)+find(segtree,node*2+1,mid+1,e,left,right)
+
+def update(segtree,node,s,e,index,diff):
+    if s>index or index>e:
+        return
+    segtree[node]+=diff
+    if s!=e:
+        mid=(s+e)//2
+        update(segtree,node*2,s,mid,index,diff)
+        update(segtree,node*2+1,mid+1,e,index,diff)
+
+N,M,K=map(int,input().split())
+L=[]
+size=N
+tree=[0]*(1<<(math.ceil(math.log2(size))+1))
+
+ans=[]
+for _ in range(N):
+    L.append(int(input()))
+init(tree,1,0,size-1)
+for _ in range(M+K):
+    a,b,c=map(int,input().split())
+    if a==1:
+        update(tree,1,0,size-1,b-1,c-L[b-1])
+        L[b-1]=c
+    else:
+        ans.append(str(find(tree,1,0,size-1,b-1,c-1)))
+print('\n'.join(ans))
