@@ -1,0 +1,34 @@
+import sys
+input=sys.stdin.readline
+
+N=int(input())
+L=[0]*10
+
+def g(A,B):
+    while A:
+        L[A%10]+=(10**B)
+        A//=10
+
+def f(A,B,C):
+    while A%10 and A<B:
+        g(A,C)
+        A+=1
+    if A==B:
+        g(A,C)
+        return
+    while B%10!=9 and A<B:
+        g(B,C)
+        B-=1
+    if A==B:
+        g(A,C)
+        return
+    A//=10
+    B//=10
+    for i in range(10):
+        L[i]+=((10**C)*(B-A+1))
+    f(A,B,C+1)
+
+f(1,N,0)
+
+for i in L:
+    print(i,end=' ')
