@@ -149,4 +149,10 @@
 + segment tree를 이용하여 구간의 합을 빠르게 구할 수 있었음. segment tree 자료구조를 잘 이용하자.
 </details> 
 </blockquote></details> 
+<details><summary> 2022.02.21 </summary><blockquote>
+<details><summary> boj 1019, 책 페이지 </summary>
+  
++ 수학문제여서 금방 풀 줄 알았으나 못 풀었다.. 풀이를 보고나니 생각보다 간단한 문젠데 못 풀어서 아쉬웠던 문제. 
+</details> 
+</blockquote></details> 
 </blockquote></details>  
