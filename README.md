@@ -166,4 +166,17 @@
   
 + 앞으로의 계획 : 전역까지 약 80일정도 남은 현 시점에서, PS이쯤에서 하고 일단 군대 전역까지는 내가 해보고 싶었던 프로젝트(플러터로 앱 만들기)를 해볼 예정입니다.<br> 물론 PS공부를 아예 쉴순 없으니, Python뿐만아니라 C/C++로 매일매일 쉬운 문제들로만 풀어볼 예정입니다.
 </blockquote></details> 
+  
+
+  
 </blockquote></details>  
+  
+
+
+<details><summary> 2022.03 </summary><blockquote>
+<details><summary> 2022.03.04 </summary><blockquote>
+<details><summary> boj 1915, 가장 큰 정사각형 </summary>
+
+  + 오랜만에 DP문제를 풀어봤는데, 골드4치고 생각보다 빠르게 안풀려서 고민좀 했던 문제. <br>핵심은 DP테이블을 채워나가며 연속된 정사각형의 정보를 갱신하는데 있었음. 
+</blockquote></details>  
+</blockquote></details>
