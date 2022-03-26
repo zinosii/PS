@@ -1,0 +1,12 @@
+import sys,re
+
+input=sys.stdin.readline
+
+for i in range(int(input())):
+    I=input().rstrip()
+    x=re.compile('(100+1+|01)+')
+    y=x.fullmatch(I)
+    if y:
+        print('YES')
+    else:
+        print('NO')
