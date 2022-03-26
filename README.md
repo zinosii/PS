@@ -179,4 +179,10 @@
 
   + 오랜만에 DP문제를 풀어봤는데, 골드4치고 생각보다 빠르게 안풀려서 고민좀 했던 문제. <br>핵심은 DP테이블을 채워나가며 연속된 정사각형의 정보를 갱신하는데 있었음. 
 </blockquote></details>  
+<details><summary> 2022.03.26 </summary><blockquote>
+<details><summary> boj 1013, Contact </summary>
+
+  + 정규표현식말고 다른 풀이로도 풀어봐야겠다. 정규표현식을 모른 상태로 풀려니 어려웠음.
+</blockquote></details>   
+
 </blockquote></details>
