@@ -164,7 +164,7 @@
 </blockquote></details> 
 <details><summary> 2022.02.23 [!] </summary><blockquote>
   
-+ 앞으로의 계획 : 전역까지 약 80일정도 남은 현 시점에서, PS이쯤에서 하고 일단 군대 전역까지는 내가 해보고 싶었던 프로젝트(플러터로 앱 만들기)를 해볼 예정입니다.<br> 물론 PS공부를 아예 쉴순 없으니, Python뿐만아니라 C/C++로 매일매일 쉬운 문제들로만 풀어볼 예정입니다.
++ 앞으로의 계획 : 전역까지 약 80일정도 남은 현 시점에서, PS이쯤에서 하고 일단 군대 전역까지는 내가 해보고 싶었던 프로젝트(플러터로 앱 만들기)를 해볼 예정입니다.<br> 물론 PS공부를 아예 쉴순 없으니, Python뿐만아니라 C/C++로 매일매일 쉬운 문제들로만 풀어볼 예정
 </blockquote></details> 
   
 
@@ -184,5 +184,10 @@
 
   + 정규표현식말고 다른 풀이로도 풀어봐야겠다. 정규표현식을 모른 상태로 풀려니 어려웠음.
 </blockquote></details>   
+<details><summary> 2022.03.27 </summary><blockquote>
+<details><summary> boj 3830, 교수님은 기다리지 않는다 </summary>
 
+  + union find 응용문제로 생각하기 매우 어려웠음.<br> find 함수에서 부모를 갱신하는것외에 무게를 갱신해줘야하였음. union에서는 무게의 차를 갱신하여 더해주어야했음.
+  
+</blockquote></details>   
 </blockquote></details>
