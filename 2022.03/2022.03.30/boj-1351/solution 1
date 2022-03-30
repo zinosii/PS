@@ -1,0 +1,14 @@
+import sys
+
+input=sys.stdin.readline
+
+N,P,Q=map(int,input().split())
+d=dict()
+d[0]=1
+
+def f(x):
+    if x in d:
+        return d[x]
+    d[x]=f(x//P)+f(x//Q)
+    return d[x]
+print(f(N))
