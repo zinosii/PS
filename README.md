@@ -189,5 +189,14 @@
 
   + union find 응용문제로 생각하기 매우 어려웠음.<br> find 함수에서 부모를 갱신하는것외에 무게를 갱신해줘야하였음. union에서는 무게의 차를 갱신하여 더해주어야했음.
   
+</blockquote></details> 
+<details><summary> 2022.03.30 </summary><blockquote>
+<details><summary> boj 1351, 무한수열 </summary>
+
+  + 기본적인 DP문제.
+</details>
+<details><summary> boj 12904, A와 B </summary>
+
+  + T->S 로 가는 역발상을 하여 풀면 쉬움. 매우쉽게 풀었음.
 </blockquote></details>   
 </blockquote></details>
