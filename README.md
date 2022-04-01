@@ -199,4 +199,15 @@
 
   + T->S 로 가는 역발상을 하여 풀면 쉬움. 매우쉽게 풀었음.
 </blockquote></details>   
+</blockquote></details> 
+  
+<details><summary> 2022.04 </summary><blockquote>
+<details><summary> 2022.04.01 </summary><blockquote>
+<details><summary> boj 1036, 36진수 </summary>
+
+  + 간단한 구현문제. 반례때문에 한번 틀렸으니 다시보자.
+</blockquote></details>  
+ 
+  
+  
 </blockquote></details>
