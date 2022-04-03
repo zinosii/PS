@@ -207,7 +207,7 @@
 
   + 간단한 구현문제. 반례때문에 한번 틀렸으니 다시보자.
 </blockquote></details>  
-<details><summary> 2022.04.3 </summary><blockquote>
+<details><summary> 2022.04.03 </summary><blockquote>
 <details><summary> boj 3190, 뱀 </summary>
 
   + 간단한 구현문젠데 자꾸 TLE가 나와서 고민해봤는데, direction을 설정할때 mod4연산을 안해줘서 반복문에서 무한루프로 TLE가 발생한거였음. 조심하자. 
