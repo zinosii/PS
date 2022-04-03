@@ -1,0 +1,75 @@
+import sys
+from collections import deque
+input=sys.stdin.readline
+
+N=int(input())
+Board=[[0]*N for i in range(N)]
+K=int(input())
+for i in range(K):
+    x,y=map(int,input().split())
+    Board[x-1][y-1]=1
+L=int(input())
+c=deque()
+for i in range(L):
+    x,y=input().split()
+    c.append((int(x),y))
+
+
+direction=0
+s=deque()
+s.append([0,0])
+Board[s[0][0]][s[0][1]]=2
+ans=0
+while 1:
+    if direction==0:
+        if s[-1][1]==N-1 or [s[-1][0],s[-1][1]+1] in s: #col
+            break
+        else:
+            if Board[s[-1][0]][s[-1][1]+1]==1:
+                s.append([s[-1][0],s[-1][1]+1])
+            else:
+                s.append([s[-1][0],s[-1][1]+1])
+                tx,ty=s.popleft()
+                Board[tx][ty]=0
+    elif direction==1:
+        if s[-1][0]==N-1 or [s[-1][0]+1,s[-1][1]] in s: #col
+            break
+        else:
+            if Board[s[-1][0]+1][s[-1][1]]==1:
+                s.append([s[-1][0]+1,s[-1][1]])
+            else:
+                s.append([s[-1][0]+1,s[-1][1]])
+                tx,ty=s.popleft()
+                Board[tx][ty]=0
+
+    elif direction==2:
+        if s[-1][1]==0 or [s[-1][0],s[-1][1]-1] in s: #col
+            break
+        else:
+            if Board[s[-1][0]][s[-1][1]-1]==1:
+                s.append([s[-1][0],s[-1][1]-1])
+            else:
+                s.append([s[-1][0],s[-1][1]-1])
+                tx,ty=s.popleft()
+                Board[tx][ty]=0
+    elif direction==3:
+        if s[-1][0]==0 or [s[-1][0]-1,s[-1][1]] in s: #col
+            break
+        else:
+            if Board[s[-1][0]-1][s[-1][1]]==1:
+                s.append([s[-1][0]-1,s[-1][1]])
+            else:
+                s.append([s[-1][0]-1,s[-1][1]])
+                tx,ty=s.popleft()
+                Board[tx][ty]=0
+    ans+=1
+    if c and ans==c[0][0]:
+        if c[0][1]=='D':
+            direction+=1
+        else:
+            direction-=1
+        direction%=4
+        c.popleft()
+
+print(ans+1)
+         
