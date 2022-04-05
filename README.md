@@ -212,6 +212,10 @@
 
   + 간단한 구현문젠데 자꾸 TLE가 나와서 고민해봤는데, direction을 설정할때 mod4연산을 안해줘서 반복문에서 무한루프로 TLE가 발생한거였음. 조심하자. 
 </blockquote></details>  
+<details><summary> 2022.04.05 </summary><blockquote>
+<details><summary> boj 11689, GCD(n,k)=1 </summary>
+
+  + sieve를 이용해 소수판정, 소인수분해, 그 후 백트래킹 까지 사용하여 풀었음. 다른사람들의 의견을 보니 오일러 파이 함수를 쓰는것으로 보아 정수론 공부를 더해야겠다 느낌. 다른 풀이도 찾아보자
   
-  
+</blockquote></details>
 </blockquote></details>
