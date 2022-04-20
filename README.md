@@ -218,4 +218,10 @@
   + sieve를 이용해 소수판정, 소인수분해, 그 후 백트래킹 까지 사용하여 풀었음. 다른사람들의 의견을 보니 오일러 파이 함수를 쓰는것으로 보아 정수론 공부를 더해야겠다 느낌. 다른 풀이도 찾아보자
   
 </blockquote></details>
+<details><summary> 2022.04.20 </summary><blockquote>
+<details><summary> boj 2170, 선 긋기 </summary>
+
+  + 스위핑 알고리즘 문제라길래 풀어봤는데, 스위핑을 쓰지않고 정렬후 간단한 아이디어로 풀리는 문제였다. 스위핑 알고리즘에 대해 공부해보자.
+  
+</blockquote></details>
 </blockquote></details>
