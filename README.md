@@ -171,8 +171,6 @@
   
 </blockquote></details>  
   
-
-
 <details><summary> 2022.03 </summary><blockquote>
 <details><summary> 2022.03.04 </summary><blockquote>
 <details><summary> boj 1915, 가장 큰 정사각형 </summary>
@@ -230,4 +228,15 @@
   + 스위핑 알고리즘 + PQ 문제. 매우 어려웠다. 우선순위큐를 떠올리지 못하였고, 스위핑 알고리즘 마저 제대로 알지못했음. <br>핵심 아이디어는 두번째 좌표로 오름차순 정렬후, 모든 주어진 구간값에 대해 PQ에 넣어주면서 반복문을 도는데, 이때 반드시 구간의 끝점이 커지므로 구간의 시작점도 커지므로 구간안에 들어가지 못하는 주어진 PQ내의 구간 값을 pop해주어야함. <br>그러므로 PQ의 길이가 바뀌면, 그때마다 PQ의 길이와 ans중 max값이 답이됨.
   
 </blockquote></details>
+<details><summary> 2022.04.26 </summary><blockquote>
+<details><summary> boj 2064, IP 주소 </summary>
+
+  + 이진수를 이용하는 구현문제. 반례찾기가 힘들어서 시간이 오래걸렸음.
+</details>
+<details><summary> boj 17298, 오큰수 </summary>
+
+  + 스택을 이용해야한다는 아이디어를 떠올리기 쉽지않음. -> 스택을 떠올리면 풀기 쉬움.
+</details>
+</blockquote></details>
+  
 </blockquote></details>
