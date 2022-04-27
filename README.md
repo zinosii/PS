@@ -238,5 +238,11 @@
   + 스택을 이용해야한다는 아이디어를 떠올리기 쉽지않음. -> 스택을 떠올리면 풀기 쉬움.
 </details>
 </blockquote></details>
+<details><summary> 2022.04.27 </summary><blockquote>
+<details><summary> boj 1033, 칵테일 </summary>
+
+  + 정수론+그래프 문제. <br>문제를 보자마자 풀이방법은 떠올랐으나, 그래프 탐색을 잘못구현하여 계속 WA를 받았음. 어디서 틀렸는지 다시 보자.
+  
+</blockquote></details>
   
 </blockquote></details>
