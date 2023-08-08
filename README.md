@@ -246,3 +246,17 @@
 </blockquote></details>
   
 </blockquote></details>
+
+ 
+<details><summary> 2023.08 </summary><blockquote>
+<details><summary> 2023.08.08 </summary><blockquote>
+<details><summary> boj 18110, solved.ac </summary>
+
+  + type error 로 고민했었는데, 이는 실수를 정수로 변환해주지 않아서 생긴문제였음.
+  다음과 같이 s=s[t:len(s)-t] 를 리스트s에 슬라이싱을 사용할때 t는 정수여야함.
+</blockquote></details>  
+
+  
+</blockquote></details>
+  
+</blockquote></details>
